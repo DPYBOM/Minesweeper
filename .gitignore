@@ -1,0 +1,7 @@
+/.vscode
+*.pyc
+/project_root/secret_key.py
+/.env
+/core_game/migrations/
+/db.sqlite3
+/concept_files
