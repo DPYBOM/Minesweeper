@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>
+      {% block title %} Nicolas Belko {% endblock %} | Minesweeper | Portfolio project
+    </title>
+
+    <meta
+      name="description"
+      content="{% block description %}A slightly different take on Minesweeper, 
+      developed as learning project and showcased in my portfolio.{% endblock %}"
+    />
+
+    <!-- Additional CSS for each specific page -->
+    {% block extra_css %}{% endblock %}
+
+  </head>
+
+  <body>
+    {% block content %}{% endblock %}
+
+    <!-- Placeholder for scripts  -->
+    {% block extra_scripts %}{% endblock %}
+  </body>
+</html>

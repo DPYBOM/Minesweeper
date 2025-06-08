@@ -61,7 +61,8 @@ ROOT_URLCONF = "project_root.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates", 
+                 BASE_DIR / "core_game/templates",],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
