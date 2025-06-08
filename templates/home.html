@@ -7,10 +7,12 @@
 {%endblock %} 
 
 {% block extra_css %}
-    <!-- CSS Placeholder -->
+    <link rel="stylesheet" href="{% static 'home.css' %}">
 {%endblock %}
 
 {% block content %}
-    <a href="{% url 'guest_game' %}"><button>Play as Guest</button></a>
-    <a href="#"><button>Play as Player</button></a> <!-- link to login page later -->       
+    <div>
+        <a href="{% url 'guest_game' %}"><button>Play as Guest</button></a>
+        <a href="#"><button>Play as Player</button></a> <!-- link to login page later --> 
+    </div> 
 {% endblock %}

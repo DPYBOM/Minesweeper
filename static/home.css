@@ -1,0 +1,65 @@
+/* Temporary UI for home page - I hope */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    background-color: #111927;
+}
+
+html {
+    font-size: 1rem;  
+}
+
+html, body {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;  
+    gap: 2rem;  
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    display: block;
+    width: 12.5rem;  
+    padding: 0.625rem 1.25rem;  
+    text-transform: uppercase;
+    border-radius: 0.5rem;  
+    font-size: 1.0625rem;  
+    font-weight: 500;
+    color: #ffffff80;
+    text-shadow: none;
+    background: transparent;
+    cursor: pointer;
+    box-shadow: transparent;
+    border: 0.0625rem solid #ffffff80;  
+    transition: 0.3s ease;
+    user-select: none;
+    text-decoration: none;
+    margin-bottom: 1.25rem;  
+}
+
+button:hover,
+:focus {
+  color: #ffffffd2;
+  background: #008cff;
+  border: 1px solid #008cff;
+  text-shadow: 0 0 5px #ffffffc7, 0 0 10px #ffffffc7, 0 0 20px #ffffffc7;
+  /* box-shadow: 0 0 5px #008cff, 0 0 20px #008cff, 0 0 50px #008cff,
+    0 0 100px #008cff; */
+  box-shadow: 0 0 2px #008cff94, 0 0 8px #008cff94, 0 0 20px #008cff94, 
+    0 0 40px #008cff94;
+}
