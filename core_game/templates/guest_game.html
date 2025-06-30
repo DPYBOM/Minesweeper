@@ -1,20 +1,54 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}Guest Game{% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'guest_game.css' %}">
+{% endblock %}
+
 {% block content %}
-<!-- Initial UI will consist of: 
-    Difficulty: 
-        Beginner: 9x9 10 mines
-        Intermediate: 16x16 40 mines
-        Expert: 16x30 99mines
-        Custom: custom adjustment of height, width and mines -->
-    <h1>Game goes here<br>
-        Difficulty <br>
-        Remaining mines <br>
-        Timer <br>
-    </h1>
+
+
+<div class="wrapper">
+    <div class="column">
+        <div class="row">
+            <button class="difficulty-option main" data-values="9,9,10">Beginner</button>
+        </div>  
+        <div class="row">
+            <button class="difficulty-option main" data-values="16,16,40">Intermediate</button>
+        </div>
+        <div class="row">
+            <button class="difficulty-option main" data-values="16,30,99">Expert</button>
+        </div>
+        <div class="row">
+            <button class="difficulty-option" id="custom">Custom</button>
+        </div>
+        <div class="rectangle">
+            <div class="input-row">
+                <p class="label">Height</p>
+                <input type="number" id="height" readonly>
+            </div>
+            <div class="input-row">
+                <p class="label">Width</p>
+                <input type="number" id="width" readonly>
+            </div>
+            <div class="input-row">
+                <p class="label">Mines</p>
+                <input type="number" id="mines" readonly>
+            </div>
+            <button class="no-style">PLAY</button>
+        </div>
+    </div>
+</div>
+
+
+
+
 {% endblock %}
 
 <!-- Game Initialization -->
-{% block extra_scripts %}{% endblock %}
+{% block extra_scripts %}
+    <script src="{% static 'guest_game_menu.js' %}"></script>
+{% endblock %}
