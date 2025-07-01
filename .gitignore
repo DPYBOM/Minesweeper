@@ -5,3 +5,4 @@
 /core_game/migrations/
 /db.sqlite3
 /concept_files
+frontend/node_modules

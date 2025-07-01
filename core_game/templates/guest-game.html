@@ -5,7 +5,7 @@
 {% block title %}Guest Game{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'guest_game.css' %}">
+    <link rel="stylesheet" href="{% static 'css/guest-game.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -50,5 +50,5 @@
 
 <!-- Game Initialization -->
 {% block extra_scripts %}
-    <script src="{% static 'guest_game_menu.js' %}"></script>
+    <script type="module" src="{% static 'js/guestGameMenu.js' %}"></script>
 {% endblock %}
