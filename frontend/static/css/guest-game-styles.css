@@ -1,0 +1,125 @@
+:root {
+    --tile-size: 32px;
+}
+
+
+#game {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: auto;
+}
+
+#game-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.game-ui-item {
+    font-family: "Roboto";
+    font-size: 1.5rem;
+    min-width: 60px;
+    text-align: center;
+    user-select: none;
+    color: white;
+}
+
+#board {
+    grid-template-columns: repeat(var(--cols), var(--tile-size));
+    grid-template-rows: repeat(var(--rows), var(--tile-size));
+    gap: var(--tile-gap, 4px);
+    /* gap: 3px; */
+    /* width: fit-content; */
+}
+
+.tile {
+    width: 32px;
+    height: 32px;
+    font-size: calc(var(--tile-size) * 0.6); 
+    margin-top: 3px;
+    margin-bottom: 3px;
+    color: #ffffff80;
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Roboto";
+    cursor: pointer;
+    user-select: none;
+}
+
+.tile.hidden {
+    background-color: rgba(40, 50, 70, 1);
+}
+
+.tile.revealed {
+    /* background-color: rgba(255, 255, 0, 0.13); */
+    background-color: transparent;
+}
+
+.tile.flag {
+    background-color: yellow;
+}
+
+
+#endgame-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#endgame-popup-box {
+  background-color: #ffffff80;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  font-family: "Roboto";
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+#endgame-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  background-color: transparent;
+}
+
+#endgame-popup button {
+    display: block;
+    justify-content: center;
+    width: 100%;
+    font-size: 1.8rem;
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+    border-radius: 0.5em;
+    border: 0.0625em solid #ffffff80;
+    color: #ffffff80;
+    /* border: none;
+    border-radius: 0.5rem;
+    background-color: #007bff;
+    color: white; */
+    cursor: pointer;
+}
+
+
+#endgame-popup.hidden {
+    display: none;
+}
+
+
+
+
+
+
+
+

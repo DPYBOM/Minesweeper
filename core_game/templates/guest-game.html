@@ -6,11 +6,10 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/guest-game.css' %}">
+    <link rel="stylesheet" href="{% static 'css/guest-game-styles.css' %}">
 {% endblock %}
 
 {% block content %}
-
-
 <div class="wrapper">
     <div class="column">
         <div class="row">
@@ -44,11 +43,25 @@
 </div>
 
 
+<div id="game">
+  <div id="game-container">
+    <div id="mine-counter" class="game-ui-item">00</div>
+    <div id="board"></div>
+    <div id="timer" class="game-ui-item">00:00</div>
+  </div>
+</div>
 
-
+<div id="endgame-popup" class="hidden">
+  <div id="endgame-popup-box">
+    <h2 id="endgame-title"></h2>
+    <button id="restart-button">🔁 Restart</button>
+    <button id="change-difficulty-button">🎮 Change Difficulty</button>
+  </div>
+</div>
 {% endblock %}
 
-<!-- Game Initialization -->
+
 {% block extra_scripts %}
     <script type="module" src="{% static 'js/guestGameMenu.js' %}"></script>
+    <script type="module" src="{% static 'js/guestGameInit.js' %}"></script>
 {% endblock %}
