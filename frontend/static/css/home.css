@@ -9,36 +9,25 @@
     background-color: #111927;
 }
 
-html {
-    font-size: 1rem;  
-}
-
 html, body {
-    height: 100%;
+    min-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.container {
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;  
-    gap: 2rem;  
-    align-items: center;
-}
 
 a {
     text-decoration: none;
 }
 
 button {
+    font-size: 3rem;
     display: block;
-    width: 12.5rem;  
+    width: 30rem;  
     padding: 0.625rem 1.25rem;  
     text-transform: uppercase;
     border-radius: 0.5rem;  
-    font-size: 1.0625rem;  
     font-weight: 500;
     color: #ffffff80;
     text-shadow: none;

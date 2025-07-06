@@ -1,6 +1,6 @@
 import { mulberry32, stringToSeed } from "./guestUtils.js";
 
-export const MINE = "💣";
+export const MINE = "";
 
 export function createEmptyBoard(rows, cols) {
     return Array.from({ length: rows }, () => Array(cols).fill(0));

@@ -5,8 +5,10 @@ const timerDisplay = document.getElementById("timer") || createTextDisplay("time
 export function updateTimerDisplay(seconds) {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    timerDisplay.textContent = 
-        `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    timerDisplay.innerHTML = `
+        <div class="game-additional-info">Time</div>
+        <div class="value">${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}</div>
+    `;
 }
 
 export function startTimer() {
@@ -28,5 +30,8 @@ export function stopTimer() {
 }
 
 export function updateMineCounter(counterElement, minesLeft) {
-    counterElement.textContent = minesLeft.toString().padStart(3, '0');
+    counterElement.innerHTML = `
+        <div class="game-additional-info">Mines</div>
+        <div class="value">${minesLeft.toString().padStart()}</div>
+    `;
 }

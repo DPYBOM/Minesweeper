@@ -17,8 +17,11 @@ export function handleInput(inputElement, min = 1, max = 40) {
 export function updateMinesMaxValue(input1, input2, input3) {
   let value1 = parseInt(input1.value, 10);
   let value2 = parseInt(input2.value, 10);
-  const maxValue3 = (value1 * value2) - 1;
-
+  const maxValue3 = (value1 * value2) - 9; // discounting the click and minimum safe zone size, when clicked in a middle of the board
+                                           // there could be a solution in which you click and when there is bigger proportion of mines, 
+                                           // than the seeding would work differently - to allow players to play,
+                                           // this seems to be only "Custom" game problem, example for replication: 40x40, 9780 mines
+                                           
   input3.max = maxValue3;
 
   const value3 = parseInt(input3.value, 10);

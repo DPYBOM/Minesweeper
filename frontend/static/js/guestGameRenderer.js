@@ -29,13 +29,3 @@ export function calculateTileSize(rows, cols) {
 
     return Math.min(tileWidth, tileHeight, 48); 
 }
-
-
-// to be implemented
-export function applyBoardScaling(rows, cols) {
-    const tileSize = calculateTileSize(rows, cols);
-
-    document.documentElement.style.setProperty('--tile-size', `${tileSize}px`);
-    document.documentElement.style.setProperty('--rows', rows);
-    document.documentElement.style.setProperty('--cols', cols);
-}

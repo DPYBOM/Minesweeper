@@ -42,22 +42,37 @@
     </div>
 </div>
 
+<ul id="navigation">
+  <li><a href="{% url 'home' %}"id="icon-home" title="Home"><img src="{% static 'home-icon.svg' %}" id="icon"></a></li>
+  <li><button id="icon-difficulty" title="Difficulty"><img src="{% static 'difficulty-option-icon.svg' %}" id="icon"></button></li>
+</ul>
 
 <div id="game">
-  <div id="game-container">
-    <div id="mine-counter" class="game-ui-item">00</div>
+  <div id="board-with-ui">
+    <div id="mine-counter" class="game-ui-item"></div>
     <div id="board"></div>
-    <div id="timer" class="game-ui-item">00:00</div>
+    <div id="timer" class="game-ui-item"></div>
+    <div id="difficulty-tab" title="Change difficulty">
+        <div>⏲</div>
+    </div>
   </div>
 </div>
 
+
+
+
+
+
 <div id="endgame-popup" class="hidden">
-  <div id="endgame-popup-box">
-    <h2 id="endgame-title"></h2>
-    <button id="restart-button">🔁 Restart</button>
-    <button id="change-difficulty-button">🎮 Change Difficulty</button>
-  </div>
+    <div id="endgame-popup-box">
+        <h2 id="endgame-title"></h2>
+        <button id="restart-button">Restart</button>
+        <button id="change-difficulty-button">Change Difficulty</button>
+    </div>
 </div>
+
+
+
 {% endblock %}
 
 

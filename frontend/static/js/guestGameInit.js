@@ -1,5 +1,5 @@
 import { generateBoard, MINE } from "./guestGameLogic.js";
-import { createTileElement, toggleFlag, applyBoardScaling } from "./guestGameRenderer.js";
+import { createTileElement, toggleFlag } from "./guestGameRenderer.js";
 import { startTimer, stopTimer, updateTimerDisplay, updateMineCounter } from "./guestGameUI.js";
 
 const inputHeight = document.getElementById("height");
@@ -7,7 +7,8 @@ const inputWidth = document.getElementById("width");
 const inputMines = document.getElementById("mines");
 const playButton = document.querySelector("button.no-style");
 
-const wrapper = document.querySelector(".wrapper"); 
+const wrapper = document.querySelector(".wrapper");
+const gameNavbar = document.getElementById("navigation")
 const gameSection = document.getElementById("game");
 const boardContainer = document.getElementById("board") || createBoardContainer();
 const mineCounter = document.getElementById("mine-counter") || createTextDisplay("mine-counter");
@@ -25,20 +26,33 @@ let gameState = {
 
 let currentHeight, currentWidth, currentMines;
 
-function createBoardContainer() {
-    const div = document.createElement("div");
-    div.id = "board";
-    document.body.appendChild(div);
-    return div;
+// this will need to change as well at some point 
+function setDynamicTileSize(rows, cols, baseTileSize = 85, gapRatio = 0.15, reservedWidth = 336, reservedHeight = 30)  {
+    const viewportWidth = window.innerWidth - reservedWidth;
+    const viewportHeight = window.innerHeight - reservedHeight;
+
+
+    const naturalBoardWidth = cols * baseTileSize + (cols - 1) * (baseTileSize * gapRatio);
+    const naturalBoardHeight = rows * baseTileSize + (rows - 1) * (baseTileSize * gapRatio);
+
+    const widthRatio = viewportWidth / naturalBoardWidth;
+    const heightRatio = viewportHeight / naturalBoardHeight;
+
+    
+    const ratio = Math.min(widthRatio, heightRatio, 1);
+
+    
+    const tileSize = Math.floor(baseTileSize * ratio);
+
+    
+    document.documentElement.style.setProperty('--tile-size', `${tileSize}px`);
+    document.documentElement.style.setProperty('--rows', rows);
+    document.documentElement.style.setProperty('--cols', cols);
+
+    return tileSize;
+            
 }
 
-function createTextDisplay(id) {
-    const div = document.createElement("div");
-    div.id = id;
-    div.textContent = "000";
-    document.body.appendChild(div);
-    return div;
-}
 
 function resetGameState(rows, cols, mines) {
     gameState.board = [];
@@ -58,8 +72,6 @@ function resetGameState(rows, cols, mines) {
 function endGame(win) {
     gameState.gameOver = true;
     stopTimer();
-    updateTimerDisplay(0);
-
     
     for (let r = 0; r < gameState.boardSize.rows; r++) {
         for (let c = 0; c < gameState.boardSize.cols; c++) {
@@ -68,7 +80,7 @@ function endGame(win) {
             if (value === MINE && tileEl && !tileEl.classList.contains("revealed")) {
                 tileEl.classList.remove("hidden");
                 tileEl.classList.add("revealed");
-                tileEl.textContent = "💣";
+                tileEl.style.backgroundColor = "red";
             }
         }
     }
@@ -77,7 +89,7 @@ function endGame(win) {
     const popup = document.getElementById("endgame-popup");
     const title = document.getElementById("endgame-title");
     popup.classList.remove("hidden");
-    title.textContent = win ? "🎉 You Win!" : "💥 You Lose";
+    title.textContent = win ? "You Win!" : "You Lose";
 
     
     document.getElementById("restart-button").onclick = () => {
@@ -87,7 +99,7 @@ function endGame(win) {
 
     document.getElementById("change-difficulty-button").onclick = () => {
         popup.classList.add("hidden");
-        showMenu(); // show the menu screen
+        showMenu(); 
     };
 }
 
@@ -109,7 +121,8 @@ function revealTile(row, col, tileEl) {
     if (value === MINE) {
         tileEl.classList.remove("hidden");
         tileEl.classList.add("revealed");
-        tileEl.textContent = "💣";
+        tileEl.textContent = "";
+        tileEl.style.backgroundColor = "red";
         gameState.revealed[row][col] = true;
         endGame(false);
         return;
@@ -186,8 +199,11 @@ function setupBoard(rows, cols, mines) {
             boardContainer.appendChild(tile);
         }
     }
-
+    setDynamicTileSize(rows, cols);
     boardContainer.style.display = "grid";
+    boardContainer.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+    })
 }
 
 function revealSafeZone(row, col) {
@@ -262,17 +278,20 @@ function startGame() {
     currentMines = mines;
 
     wrapper.style.display = "none";      
-    gameSection.style.display = "flex";  
+    gameSection.style.display = "flex";
+    gameNavbar.style.display = "flex";  
 
     boardContainer.style.setProperty('--cols', width);
     boardContainer.style.setProperty('--rows', height);
 
     setupBoard(height, width, mines);
+
 }
 
 function initGame() {
     wrapper.style.display = "none";
     gameSection.style.display = "flex";
+    gameNavbar.style.display = "flex";
 
     boardContainer.style.setProperty('--cols', currentWidth);
     boardContainer.style.setProperty('--rows', currentHeight);
@@ -281,8 +300,14 @@ function initGame() {
 }
 
 function showMenu() {
-  wrapper.style.display = "flex";
-  gameSection.style.display = "none";
+    wrapper.style.display = "flex";
+    gameSection.style.display = "none";
+    gameNavbar.style.display = "none";
 }
 
 playButton.addEventListener("click", startGame);
+document.getElementById("icon-difficulty").onclick = () => {
+    showMenu(); 
+}; 
+
+
