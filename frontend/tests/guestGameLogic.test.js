@@ -4,9 +4,9 @@ import {
   createEmptyBoard, 
   getSafeZoneTiles, 
   getNeighborCoords
-} from "../static/js/guestGameLogic.js";
+} from "../static/js/gameLogic/guestGameLogic.js";
 
-import { stringToSeed, mulberry32 } from "../static/js/guestUtils.js";
+import { stringToSeed, mulberry32 } from "../static/js/gameUtils/guestUtils.js";
 
 
 //integration test would be needed for checkWinCondition, revealAdjacentZerosIterative, getTileRevealResult, placeMines

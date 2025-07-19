@@ -1,0 +1,46 @@
+/* this will need to change */
+#navigation {
+    display: none;
+    flex-flow: row wrap;
+    justify-content: space-around;
+
+    
+    list-style: none;
+    margin: 0; 
+    background-color: #ffffff10;
+}
+
+#icon {
+    background-color: transparent;
+    width: 1em;
+    height: 1em;
+}
+
+#navigation button, #navigation a {
+    all: unset;
+    display: block;
+    padding: 0 0.2em;
+    background-color: #ffffff10;
+    cursor: pointer;
+}
+
+#navigation button:hover, #navigation a:hover {
+    background: #cce4ff50;
+}
+
+@media all and (max-width: 500px) {
+  #navigation {
+    flex-flow: column wrap;
+    padding: 0;
+  }
+  #navigation a, #navigation button { 
+    text-align: center; 
+    padding: 10px;
+    border-top: 1px solid rgba(255, 255, 255,0.3); 
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
+  }
+  #navigation button {
+    min-width: 100vw;
+    border-bottom: none;
+  }
+}

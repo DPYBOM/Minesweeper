@@ -5,8 +5,10 @@
 {% block title %}Guest Game{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/guest-game.css' %}">
-    <link rel="stylesheet" href="{% static 'css/guest-game-styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/guest-game-menu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/guest-game-board.css' %}">
+    <link rel="stylesheet" href="{% static 'css/guest-game-navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/guest-game-endgame-popup.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -52,16 +54,8 @@
     <div id="mine-counter" class="game-ui-item"></div>
     <div id="board"></div>
     <div id="timer" class="game-ui-item"></div>
-    <div id="difficulty-tab" title="Change difficulty">
-        <div>⏲</div>
-    </div>
   </div>
 </div>
-
-
-
-
-
 
 <div id="endgame-popup" class="hidden">
     <div id="endgame-popup-box">
@@ -71,12 +65,9 @@
     </div>
 </div>
 
-
-
 {% endblock %}
 
-
 {% block extra_scripts %}
-    <script type="module" src="{% static 'js/guestGameMenu.js' %}"></script>
-    <script type="module" src="{% static 'js/guestGameInit.js' %}"></script>
+    <script type="module" src="{% static 'js/gameUI/guestGameMenu.js' %}"></script>
+    <script type="module" src="{% static 'js/gameInit/guestGameInit.js' %}"></script>
 {% endblock %}

@@ -1,0 +1,76 @@
+#game {
+    display: none;
+    align-items: center;
+    min-height: 100vh; /*This needs to be changed somehow or something to remove scrollbar because of the navigation bar*/
+}
+
+#board-with-ui {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: nowrap;
+    margin: 0 auto;
+}
+
+.game-ui-item {
+    font-family: "Roboto";
+    font-size: 2.5rem;
+    min-width: 120px;
+    text-align: center;
+    user-select: none;
+    color: #ffffff80;
+}
+
+#mine-counter {
+    text-align: right;
+}
+
+#timer {
+    text-align: left;
+}
+
+#board {
+    grid-template-columns: repeat(var(--cols), var(--tile-size));
+    grid-template-rows: repeat(var(--rows), var(--tile-size));
+    gap: calc(var(--tile-size) * 0.15);
+    background-color: rgba(0, 0, 0, 0.2)
+}
+
+.tile {
+    width: var(--tile-size);
+    height: var(--tile-size);
+    font-size: calc(var(--tile-size) * 0.6); 
+    margin-top: 3px;
+    margin-bottom: 3px;
+    color: #ffffff80;
+    border: 1px solid #ffffff90;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Roboto";
+    cursor: pointer;
+    user-select: none;
+}
+
+.tile.hidden {
+    background-color: #4a4a4a;
+}
+
+.tile.revealed {
+    background-color: #707070;
+}
+
+.tile.flag {
+    background-color: #f4a261;
+}
+
+
+
+
+
+
+
+
+
+
+

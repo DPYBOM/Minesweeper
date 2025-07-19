@@ -5,7 +5,7 @@ import {
   clamp,
   updateMinesMaxValue,
   handleInput
-} from "../static/js/guestGameMenuUtils.js";
+} from "../static/js/gameUI/guestGameMenuUtils.js";
 
 describe("clamp", () => {
   it("returns value within range", () => {

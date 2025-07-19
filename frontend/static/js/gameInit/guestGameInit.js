@@ -3,9 +3,9 @@ import { generateBoard, MINE,
     checkWinCondition,
     revealAdjacentZerosIterative,
     getSafeZoneTiles,
-    getTileRevealResult } from "./guestGameLogic.js";
-import { createTileElement, toggleFlag } from "./guestGameRenderer.js";
-import { startTimer, stopTimer, updateTimerDisplay, updateMineCounter } from "./guestGameUI.js";
+    getTileRevealResult } from "../gameLogic/guestGameLogic.js";
+import { createTileElement, toggleFlag } from "../gameUI/guestGameRenderer.js";
+import { startTimer, stopTimer, updateTimerDisplay, updateMineCounter } from "../gameUI/guestGameUI.js";
 
 const inputHeight = document.getElementById("height");
 const inputWidth = document.getElementById("width");

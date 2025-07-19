@@ -1,4 +1,4 @@
-import { mulberry32, stringToSeed } from "./guestUtils.js";
+import { mulberry32, stringToSeed } from "../gameUtils/guestUtils.js";
 
 export const MINE = "";
 
