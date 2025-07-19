@@ -1,4 +1,9 @@
-import { generateBoard, MINE } from "./guestGameLogic.js";
+import { generateBoard, MINE,  
+    resetGameState,
+    checkWinCondition,
+    revealAdjacentZerosIterative,
+    getSafeZoneTiles,
+    getTileRevealResult } from "./guestGameLogic.js";
 import { createTileElement, toggleFlag } from "./guestGameRenderer.js";
 import { startTimer, stopTimer, updateTimerDisplay, updateMineCounter } from "./guestGameUI.js";
 
@@ -10,8 +15,8 @@ const playButton = document.querySelector("button.no-style");
 const wrapper = document.querySelector(".wrapper");
 const gameNavbar = document.getElementById("navigation")
 const gameSection = document.getElementById("game");
-const boardContainer = document.getElementById("board") || createBoardContainer();
-const mineCounter = document.getElementById("mine-counter") || createTextDisplay("mine-counter");
+const boardContainer = document.getElementById("board");
+const mineCounter = document.getElementById("mine-counter");
 
 
 let gameState = {
@@ -54,21 +59,6 @@ function setDynamicTileSize(rows, cols, baseTileSize = 85, gapRatio = 0.15, rese
 }
 
 
-function resetGameState(rows, cols, mines) {
-    gameState.board = [];
-    gameState.revealed = Array.from({ length: rows }, () => Array(cols).fill(false));
-    gameState.flagsLeft = mines;
-    gameState.timerStarted = false;
-    gameState.firstClick = true;
-    gameState.boardSize = { rows, cols };
-    gameState.mines = mines;
-    gameState.gameOver = false;
-
-    updateMineCounter(mineCounter, mines);
-    stopTimer();
-    updateTimerDisplay(0); 
-}
-
 function endGame(win) {
     gameState.gameOver = true;
     stopTimer();
@@ -103,80 +93,43 @@ function endGame(win) {
     };
 }
 
-function checkWinCondition() {
-    for (let r = 0; r < gameState.boardSize.rows; r++) {
-        for (let c = 0; c < gameState.boardSize.cols; c++) {
-            if (gameState.board[r][c] !== MINE && !gameState.revealed[r][c]) {
-                return; 
-            }
-        }
-    }
-    endGame(true); 
-}
 
 function revealTile(row, col, tileEl) {
     if (gameState.revealed[row][col] || tileEl.classList.contains("flag")) return;
 
-    const value = gameState.board[row][col];
-    if (value === MINE) {
+    const result = getTileRevealResult(gameState.board, gameState.revealed, row, col, MINE);
+    if (!result) return;
+
+    if (result.type === "mine") {
+        gameState.revealed[row][col] = true;
         tileEl.classList.remove("hidden");
         tileEl.classList.add("revealed");
         tileEl.textContent = "";
         tileEl.style.backgroundColor = "red";
-        gameState.revealed[row][col] = true;
         endGame(false);
         return;
     }
 
-    if (value > 0) {
-        tileEl.classList.remove("hidden");
-        tileEl.classList.add("revealed");
-        tileEl.textContent = value;
-        gameState.revealed[row][col] = true;       
-    } else {
-        revealAdjacentZerosIterative(row, col);
-    }
+    tileEl.classList.remove("hidden");
+    tileEl.classList.add("revealed");
 
-    checkWinCondition();
-}
-
-function revealAdjacentZerosIterative(startRow, startCol) {
-    const queue = [[startRow, startCol]];
-
-    while (queue.length > 0) {
-        const [row, col] = queue.shift();
-
-        if (gameState.revealed[row][col]) continue;
-
-        const tileEl = document.querySelector(`.tile[data-row="${row}"][data-col="${col}"]`);
-        if (!tileEl || tileEl.classList.contains("flag")) continue;
-
+    if (result.type === "number") {
         gameState.revealed[row][col] = true;
-        tileEl.classList.remove("hidden");
-        tileEl.classList.add("revealed");
-
-        const value = gameState.board[row][col];
-        if (value > 0) {
-            tileEl.textContent = value;
-        }   else {
-            tileEl.textContent = "";
-
-            for (let dr = -1; dr <= 1; dr++) {
-                for (let dc = -1; dc <= 1; dc++) {
-                    if (dr === 0 && dc === 0) continue;
-                    const r = row + dr;
-                    const c = col + dc;
-                    if (
-                        r >= 0 && r < gameState.boardSize.rows &&
-                        c >= 0 && c < gameState.boardSize.cols &&
-                        !gameState.revealed[r][c]
-                    ) {
-                        queue.push([r, c]);
-                    }
-                }
+        tileEl.textContent = result.value;
+    } else if (result.type === "expand") {
+        const revealedTiles = revealAdjacentZerosIterative(gameState.board, gameState.revealed, row, col);
+        for (const { row: r, col: c, value } of revealedTiles) {
+            const tile = document.querySelector(`.tile[data-row="${r}"][data-col="${c}"]`);
+            if (tile) {
+                tile.classList.remove("hidden");
+                tile.classList.add("revealed");
+                tile.textContent = value > 0 ? value : "";
             }
         }
     }
+    if (checkWinCondition(gameState.board, gameState.revealed, gameState.boardSize.rows, gameState.boardSize.cols, MINE)) {
+        endGame(true);
+    } 
 }
 
 function bindTileEvents(tile, row, col) {
@@ -189,7 +142,12 @@ function bindTileEvents(tile, row, col) {
 }
 
 function setupBoard(rows, cols, mines) {
-    resetGameState(rows, cols, mines);
+    resetGameState(gameState, rows, cols, mines); 
+
+    updateMineCounter(mineCounter, mines);        
+    stopTimer();                                 
+    updateTimerDisplay(0);                        
+
     boardContainer.innerHTML = "";
 
     for (let r = 0; r < rows; r++) {
@@ -203,24 +161,15 @@ function setupBoard(rows, cols, mines) {
     boardContainer.style.display = "grid";
     boardContainer.addEventListener('contextmenu', (e) => {
         e.preventDefault();
-    })
+    });
 }
 
 function revealSafeZone(row, col) {
-    for (let dr = -1; dr <= 1; dr++) {
-        for (let dc = -1; dc <= 1; dc++) {
-            const r = row + dr;
-            const c = col + dc;
-
-            if (
-                r >= 0 && r < gameState.boardSize.rows &&
-                c >= 0 && c < gameState.boardSize.cols
-            ) {
-                const tileEl = document.querySelector(`.tile[data-row="${r}"][data-col="${c}"]`);
-                if (tileEl && !gameState.revealed[r][c] && !tileEl.classList.contains("flag")) {
-                    revealTile(r, c, tileEl);
-                }
-            }
+    const tilesToReveal = getSafeZoneTiles(row, col, gameState.boardSize.rows, gameState.boardSize.cols);
+    for (const [r, c] of tilesToReveal) {
+        const tileEl = document.querySelector(`.tile[data-row="${r}"][data-col="${c}"]`);
+        if (tileEl && !gameState.revealed[r][c] && !tileEl.classList.contains("flag")) {
+            revealTile(r, c, tileEl);
         }
     }
 }

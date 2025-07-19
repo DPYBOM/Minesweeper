@@ -16,16 +16,3 @@ export function toggleFlag(tileEl, flagsLeft) {
         return flagsLeft - 1;
     }
 }
-
-export function calculateTileSize(rows, cols) {
-    const sideUIPadding = 160; 
-    const topBottomPadding = 100;
-
-    const maxWidth = window.innerWidth - sideUIPadding;
-    const maxHeight = window.innerHeight - topBottomPadding;
-
-    const tileWidth = Math.floor(maxWidth / cols);
-    const tileHeight = Math.floor(maxHeight / rows);
-
-    return Math.min(tileWidth, tileHeight, 48); 
-}
