@@ -15,8 +15,6 @@ export function placeMines(board, rng, mineCount, safeRow, safeCol) {
         const r = Math.floor(rng() * rows);
         const c = Math.floor(rng() * cols);
 
-
-
         const isSafeZone =
             Math.abs(r - safeRow) <= 1 &&
             Math.abs(c - safeCol) <= 1;

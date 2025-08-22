@@ -19,11 +19,15 @@ from django.contrib import admin
 from django.urls import path
 
 
-from core_game.views import home_view, guest_view
+from core_game.views import home_view, guest_view, multiplayer_view, register_view, login_view, logout_view 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
 
     path("", home_view, name="home"),
     path("guest/", guest_view, name="guest_game"),
+    path("multiplayer/", multiplayer_view, name="multiplayer"),
+    path("register/", register_view, name="register"),
+    path("login/", login_view, name="login"),
+    path("logout/", logout_view, name="logout"),
 ]
