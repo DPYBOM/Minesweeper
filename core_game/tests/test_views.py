@@ -23,4 +23,4 @@ class GuestPageTests(SimpleTestCase):
         self.assertEqual(self.response.status_code, 200)
 
     def test_homepage_uses_correct_template(self):
-        self.assertTemplateUsed(self.response, "guest_game.html")
+        self.assertTemplateUsed(self.response, "guest-game.html")

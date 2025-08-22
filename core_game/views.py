@@ -32,23 +32,24 @@ def register_view(request):
             messages.error(request, "Username already exists")
 
         # Django already does length check and check if name==password by validate_password, thus skipped
+        # Changed the settings of the password length from 8 to 12
 
         # Check complexity not covered by Django
         if not re.search(r"[A-Z]", password):
             user_data_has_error = True
-            messages.error(request, "Password must contain at least one uppercase letter")
+            messages.error(request, "Password must contain at least one uppercase letter.")
 
         if not re.search(r"[a-z]", password):
             user_data_has_error = True
-            messages.error(request, "Password must contain at least one lowercase letter")
+            messages.error(request, "Password must contain at least one lowercase letter.")
 
         if not re.search(r"\d", password):
             user_data_has_error = True
-            messages.error(request, "Password must contain at least one digit")
+            messages.error(request, "Password must contain at least one digit.")
 
         if not re.search(r"[!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]", password):
             user_data_has_error = True
-            messages.error(request, "Password must contain at least one special character")
+            messages.error(request, "Password must contain at least one special character.")
 
         try:
             validate_password(password)
