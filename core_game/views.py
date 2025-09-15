@@ -17,10 +17,9 @@ def guest_view(request):
 
 @login_required
 def multiplayer_view(request):
-    return render(request, "multiplayer-game.html")
+    return render(request, "multiplayer-game-menu.html")
 
 def register_view(request):
-    # return render(request, "register.html")
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -71,8 +70,6 @@ def register_view(request):
     return render(request, "register.html")
 
 def login_view(request):
-    # return render(request, "login.html")
-
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -91,7 +88,5 @@ def login_view(request):
     return render(request, "login.html")
 
 def logout_view(request):
-
     logout(request)
-
     return redirect("home")

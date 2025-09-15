@@ -1,0 +1,14 @@
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/multiplayer/multiplayer-navbar.css' %}">
+{% endblock %}
+
+<nav class="navbar">
+  <ul>
+    <li><a href="{% url 'multiplayer' %}">Menu</a></li>
+    <li><a href="%">Leaderboard</a></li>
+    <li style="float:right"><a href="{% url 'logout' %}">Logout</a></li>
+  </ul>
+</nav>
+

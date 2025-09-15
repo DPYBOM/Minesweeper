@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Multiplayer Game{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/multiplayer/multiplayer-game-menu.css' %}">
+{% endblock %}
+
+{% block template %}
+    {% include "multiplayer-navbar.html" %}
+{% endblock %}
+
+{% block content %}
+    <div class="menu-container">
+        <div class="menu-buttons">
+            <a href="%" class="menu-btn">Singleplayer</a>
+            <a href="%" class="menu-btn">Multiplayer</a>
+            <a href="%" class="menu-btn">Leaderboard</a>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block extra_scripts %}
+{% endblock %}

@@ -67,6 +67,6 @@ class AuthTests(TestCase):
         self.client.login(username=self.username, password=self.password)
         response = self.client.get(reverse("multiplayer"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "multiplayer-game.html")
+        self.assertTemplateUsed(response, "multiplayer-game-menu.html")
 
 
